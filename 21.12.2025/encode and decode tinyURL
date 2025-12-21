@@ -1,0 +1,24 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Codec {
+
+    private Map<Integer, String> map;
+    private int id;
+    private static final String BASE_URL = "http://tinyurl.com/";
+
+    public Codec() {  
+        map = new HashMap<>();
+        id = 0;
+    }
+
+    public String encode(String longUrl) {
+        map.put(id, longUrl);
+        return BASE_URL + id++;
+    }
+
+    public String decode(String shortUrl) {
+        int key = Integer.parseInt(shortUrl.replace(BASE_URL, ""));
+        return map.get(key);
+    }
+}
