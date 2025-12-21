@@ -1,0 +1,37 @@
+class Solution {
+    public int minMutation(String start, String end, String[] bank) {
+        Queue<String> q=new LinkedList<>();
+        HashSet<String> set=new HashSet<>();
+        q.add(start);
+        set.add(start);
+        int count=0;
+        while(!q.isEmpty()){
+        int size=q.size();
+        for(int i=0;i<size;i++){
+        String x=q.poll();
+        if(x.equals(end))
+        return count;
+
+        for(String b:bank){
+            if(!set.contains(b)){
+                 int flag=0;
+            for(int k=0;k<b.length();k++){
+            if(x.charAt(k)!=b.charAt(k))
+            flag++;
+            if(flag>1)
+            break;
+            }
+            if(flag==1)
+            { 
+               q.add(b);
+               set.add(b);
+            }
+        }
+     }
+   }
+    count++;
+  }
+
+   return -1;
+    }
+}
