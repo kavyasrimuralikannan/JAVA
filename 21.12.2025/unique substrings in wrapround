@@ -1,0 +1,26 @@
+class Solution {
+    public int findSubstringInWraproundString(String s) {
+        int count[] = new int[26];
+        int len = 1;
+        count[s.charAt(0) - 'a']++;
+        int sum = 1;
+        for (int i = 1; i < s.length(); i++) {
+            char curr = s.charAt(i);
+            char prev = s.charAt(i - 1);
+            if (curr - prev == 1 || prev - curr == 25) {
+                len++;
+            } else {
+                len = 1;
+            }
+            int key=curr - 'a';
+            if(count[key]<len){
+                sum+=len-count[key];
+                count[key]=len;
+            }
+           
+        }
+    
+      
+        return sum;
+    }
+}
