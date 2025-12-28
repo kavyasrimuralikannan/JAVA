@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public int minimumLengthEncoding(String[] words) {
+        Set<String> wordSet = new HashSet<>(Arrays.asList(words));
+        
+        // Remove all words that are a suffix of another word
+        for (String word : words) {
+            for (int k = 1; k < word.length(); k++) {
+                wordSet.remove(word.substring(k));
+            }
+        }
+        
+        int totalLength = 0;
+        for (String w : wordSet) {
+            totalLength += w.length() + 1; // +1 for the '#' character
+        }
+        
+        return totalLength;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String[] words1 = {"time", "me", "bell"};
+        System.out.println(sol.minimumLengthEncoding(words1)); // Output: 10
+
+        String[] words2 = {"t"};
+        System.out.println(sol.minimumLengthEncoding(words2)); // Output: 2
+    }
+}
