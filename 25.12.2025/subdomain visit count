@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> countMap = new HashMap<>();
+        
+        for (String cpdomain : cpdomains) {
+            String[] parts = cpdomain.split(" ");
+            int count = Integer.parseInt(parts[0]);
+            String domain = parts[1];
+            
+            String[] fragments = domain.split("\\.");
+            
+            for (int i = 0; i < fragments.length; i++) {
+                String subdomain = String.join(".", Arrays.copyOfRange(fragments, i, fragments.length));
+                countMap.put(subdomain, countMap.getOrDefault(subdomain, 0) + count);
+            }
+        }
+        
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
+            result.add(entry.getValue() + " " + entry.getKey());
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String[] cpdomains1 = {"9001 discuss.leetcode.com"};
+        System.out.println(sol.subdomainVisits(cpdomains1));
+        
+
+        String[] cpdomains2 = {"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"};
+        System.out.println(sol.subdomainVisits(cpdomains2));}
+}
