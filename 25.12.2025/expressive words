@@ -1,0 +1,38 @@
+class Solution {
+    public int expressiveWords(String s, String[] words) {
+        int count = 0;
+        for (String word : words) {
+            if (isStretchy(s, word)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    private boolean isStretchy(String s, String word) {
+        int i = 0, j = 0;
+        int n = s.length(), m = word.length();
+        
+        while (i < n && j < m) {
+            char sc = s.charAt(i), wc = word.charAt(j);
+            if (sc != wc) return false;
+            
+            int lenS = 0;
+            while (i < n && s.charAt(i) == sc) { i++; lenS++; }
+            
+            int lenW = 0;
+            while (j < m && word.charAt(j) == wc) { j++; lenW++; }
+            
+            if (lenS < lenW) return false; // can't shrink s
+            if (lenS != lenW && lenS < 3) return false; // can't stretch small group
+        }
+        return i == n && j == m;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s = "heeellooo";
+        String[] words = {"hello", "hi", "helo"};
+        System.out.println(sol.expressiveWords(s, words)); // Output: 1
+    }
+}
