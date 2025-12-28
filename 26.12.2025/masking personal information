@@ -1,0 +1,49 @@
+class Solution {
+    public String maskPII(String s) {
+         StringBuilder sb=new StringBuilder();
+        if(Character.isLetter(s.charAt(0))){
+            String str[]=s.split("\\@");
+           
+            String first=str[0];
+            sb.append(Character.toLowerCase(first.charAt(0)));
+            sb.append("*****");
+            sb.append(Character.toLowerCase(first.charAt(first.length()-1 )));
+            sb.append("@");
+            String second=str[1];
+            for(int i=0;i<second.length();i++){
+                if(Character.isUpperCase(second.charAt(i))){
+                    sb.append(Character.toLowerCase(second.charAt(i)));
+                }
+                else{
+                    sb.append(second.charAt(i));
+                }
+            }
+
+        }
+        else{
+            StringBuilder number=new StringBuilder();
+            for(int i=0;i<s.length();i++){
+                if(Character.isDigit(s.charAt(i))){
+                    number.append(s.charAt(i));
+                }
+            }
+            if(number.length()==10){
+                sb.append("***-***-");
+            }
+            else if(number.length()==11){
+                sb.append("+*-***-***-");
+            }
+             else if(number.length()==12){
+                sb.append("+**-***-***-");
+            }
+             else if(number.length()==13){
+                sb.append("+***-***-***-");
+            }
+            s=number.toString();
+            sb.append(s.substring(s.length()-4 , s.length()));
+
+        }
+        return sb.toString();
+        
+    }
+}
