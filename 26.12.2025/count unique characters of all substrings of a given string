@@ -1,0 +1,23 @@
+class Solution {
+    public int uniqueLetterString(String s) {
+        int n = s.length();
+        int[] right = new int[n];
+        int[] left = new int[26];
+        Arrays.fill(left , n);
+        Arrays.fill(right , n);
+        int ans = 0 ;
+        for(int i = n - 1; i >= 0 ; i--){
+            int curr = s.charAt(i) - 'A';
+            right[i] = left[curr];
+            left[curr] = i;
+        }
+        Arrays.fill(left , -1);
+        for(int i = 0 ; i < n ; i++){
+            int curr = s.charAt(i) - 'A';
+            int sum = (right[i] - i) *  (i - left[curr]);
+            ans += sum;
+            left[curr] = i;
+        }
+        return ans;
+    }
+}
